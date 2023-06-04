@@ -8,7 +8,7 @@ const Header = () => {
     <section>
        <Container fluid  className=' bg-secondary bg-gradient p-3'>
       <Row className='text-center text-white'>
-        <Col className='fw-bold ' style={{fontSize:100}}> The Generics</Col>
+        <Col className='fw-bold mt-3 ' style={{fontSize:100}}> The Generics</Col>
       </Row>
     </Container>
     </section>
