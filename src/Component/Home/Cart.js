@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {
   MDBBtn,
   MDBModal,
@@ -9,12 +9,13 @@ import {
   MDBModalBody,
   MDBModalFooter,
 } from 'mdb-react-ui-kit';
+import CtxProvider from '../../Store/ContextAPI';
 const Cart = () => {
   const [topRightModal, setTopRightModal] = useState(false);
-
+  const ctx=useContext(CtxProvider);
   const toggleShow = () => setTopRightModal(!topRightModal);
   return (
-    <div><MDBBtn onClick={toggleShow}>Top right</MDBBtn>
+    <div><MDBBtn onClick={toggleShow}>Cart</MDBBtn>
 
     <MDBModal
       animationDirection='right'

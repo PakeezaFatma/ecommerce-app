@@ -1,72 +1,71 @@
-import React, {  useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from "react-bootstrap/Button";
 
 import Modal from "react-bootstrap/Modal";
 
 import "./Cart.css";
+import { ContextAPI } from "../../Store/ContextAPI";
+
 const Cartp = () => {
-    
+  const ctx = useContext(ContextAPI);
   const [show, setShow] = useState(false);
-  
 
-  const cartElements = [
-    {
-      title: "Colors",
+  // const cartElements = [
+  //   {
+  //     title: "Colors",
 
-      price: 100,
+  //     price: 100,
 
-      imageUrl:
-        "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
+  //     imageUrl:
+  //       "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
 
-      quantity: 2,
-    },
+  //     quantity: 2,
+  //   },
 
-    {
-      title: "Black and white Colors",
+  //   {
+  //     title: "Black and white Colors",
 
-      price: 50,
+  //     price: 50,
 
-      imageUrl:
-        "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
+  //     imageUrl:
+  //       "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
 
-      quantity: 3,
-    },
+  //     quantity: 3,
+  //   },
 
-    {
-      title: "Yellow and Black Colors",
+  //   {
+  //     title: "Yellow and Black Colors",
 
-      price: 70,
+  //     price: 70,
 
-      imageUrl:
-        "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
+  //     imageUrl:
+  //       "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
 
-      quantity: 1,
-    },
-  ];
+  //     quantity: 1,
+  //   },
+  // ];
   const handleClose = () => setShow(false);
   const handleShow = () => {
     setShow(true);
   };
 
-// const removeHandler=(id)=>{
-//   setShow(false);
-// ctx.removeFromCart(id)
-// }
+  const removeHandler = (id) => {
+    setShow(false);
+    ctx.removeFromCart(id);
+  };
 
-  
-  
-//   let totalAmount=0;
-//   ctx.items.forEach((itm)=>{
-//     totalAmount+=itm.quantity*itm.price
-//   })
+  let totalAmount = 0;
+  ctx.items.forEach((item) => {
+    totalAmount += item.quantity * item.price;
+  });
 
   return (
-    <div className="cart-container position='top-right' side" >
+    <div className="cart-container position='top-right' side">
       <Button variant="primary" onClick={handleShow}>
         Cart
       </Button>
 
-      <Modal show={show} onHide={handleClose}    >
+      <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title className="cart-modal-title">Cart</Modal.Title>
         </Modal.Header>
@@ -76,33 +75,38 @@ const Cartp = () => {
             <div className="cart-sub-head-second">PRICE</div>
             <div className="cart-sub-head-third">QUANTITY</div>
           </div>
-          {cartElements.map((item) => (
+          {ctx.items.map((item) => (
             <div className="cart-item-div" key={item.id}>
               <div className="cart-item-first">
                 <div className="cart-item-first-img">
-                  <img src={item.imageUrl} />
+                  <img alt="Product" src={item.imageUrl} />
                 </div>
                 <div className="cart-item-first-title">{item.title}</div>
               </div>
               <div className="cart-item-second">${item.price}</div>
               <div className="cart-item-third">
                 <div className="cart-item-third-qty">{item.quantity}</div>
-                <Button variant="primary" className="cart-remove-btn">
+                <Button
+                  variant="primary"
+                  className="cart-remove-btn"
+                  onClick={removeHandler.bind(null, item.id)}
+                >
                   Remove
                 </Button>
               </div>
             </div>
-          ))};
+          ))}
+          
         </Modal.Body>
         <Modal.Footer>
           <div className="cart-footer">
             <Button variant="primary">PURCHASE</Button>
-            <div className="cart-total-div">Total $</div>
+            <div className="cart-total-div">Total ${totalAmount}</div>
           </div>
         </Modal.Footer>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
 export default Cartp;

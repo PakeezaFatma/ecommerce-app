@@ -8,12 +8,17 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../node_modules/mdb-react-ui-kit/dist/css/mdb.min.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "../node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+import CtxProvider from './Store/ContextAPI';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <CtxProvider>
+    <React.StrictMode>
     <App />
   </React.StrictMode>
+  </CtxProvider>
+  
 );
 
 // If you want to start measuring performance in your app, pass a function
