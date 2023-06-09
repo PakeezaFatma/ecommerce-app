@@ -80,12 +80,12 @@ const productsArr = [
       </Container>
 
       <Container
-      className="w-75 d-flex justify-content-around"
-       
+      className="w-75 "
+      
       >
-        <Row >
+        <Row  >
          {productsArr.map((item)=>(
-           <Col className="m-5" key={item.id} id={item.id} >
+           <Col className="m-5 d-flex justify-content-around" key={item.id} id={item.id} >
            <Card style={{ width: "18rem" }}>
              <div>
              <Card.Img variant="top" src={item.imageUrl}/>
