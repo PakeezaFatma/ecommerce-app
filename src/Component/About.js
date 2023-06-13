@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import Container from "react-bootstrap/esm/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
+
 const About = () => {
   return (
     <Fragment>

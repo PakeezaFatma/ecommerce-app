@@ -27,7 +27,7 @@ const NavBar = () => {
           {/* <Navbar.Brand href="#home">Navbar</Navbar.Brand> */}
           <Nav className="text-white w-100 d-flex justify-content-around">
             <NavLink to='/'>Home</NavLink>
-            <NavLink to='/store'>Store</NavLink>
+            <NavLink to='/movies'>Movies</NavLink>
             <NavLink to='/about'>About</NavLink>
 
             <Cartp />
