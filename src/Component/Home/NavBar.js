@@ -29,7 +29,7 @@ const NavBar = () => {
             <NavLink to='/'>Home</NavLink>
             <NavLink to='/movies'>Movies</NavLink>
             <NavLink to='/about'>About</NavLink>
-
+            <NavLink to='/contactUs'>Contact Us</NavLink>
             <Cartp />
             <p
               style={{

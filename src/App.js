@@ -10,12 +10,13 @@ import Home from './Component/Home/Home';
 import About from './Component/About';
 import Movies from './Component/Movies/Movies';
 import { ContextAPI } from './Store/ContextAPI';
+import ContactUs from './Component/Home/ContactUs';
 
 
 
 function App() {
  const ctx=useContext(ContextAPI);
- 
+ console.log(ctx.isLoading)
   return (
     <div className="App">
 
@@ -25,9 +26,9 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/about' element={<About/>} />
-        {/* <Route path='/movies' element={! ctx.isloading && <Movies /> || ctx.isloading && <p>...Loading</p>}/> */}
-        <Route path='/movies' element={ctx.isloading ? <p>...Loading</p> : <Movies />} />
-
+        <Route path='/movies' element={! ctx.isLoading && <Movies /> || ctx.isLoading && <p>...Loading</p>}/>
+        {/* <Route path='/movies' element={ctx.isLoading ? <p>Loading........</p> : <Movies />} /> */}
+        <Route path='/contactUs' element={<ContactUs/>}/>
        
       </Routes>
       

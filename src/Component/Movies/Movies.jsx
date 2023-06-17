@@ -37,7 +37,7 @@ const Movies = () => {
         
         {/* { showBtn && <Button bsStyle="primary" bsSize="large" className="ml-2">Show&Hide</Button>} */}
         
-
+        {/* <Button >Cancel</Button> */}
       </div>
       <Row>
         <Col>
