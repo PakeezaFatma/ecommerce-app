@@ -8,26 +8,39 @@ const CtxProvider= (props)=>{
   //Laoding
   const [isLoading,setLoading]=useState(false);
   
-  async function fetchMoviesHandler()
+  const  fetchMoviesHandler= async()=>{
+    let id;
+    try{
+      setLoading(true);
+      const response=await fetch('https://swapi.dev/api/films');
+      
+      const data=await response.json();
+      clearInterval(id);
+         const transformedMovies = data.results.map(moviesData=>{
+           return {
+             id:moviesData.episode_id,
+             title:moviesData.title,
+             openingText:moviesData.opening_crawl,
+             releaseDate:moviesData.release_date
+           };
+         });
+         
+         setMovies(transformedMovies);
+         setLoading(false);
+         console.log(transformedMovies);  
+     }
+     //Error Handling
+     catch(err)
   {
-    setLoading(true);
-   const response=await fetch('https://swapi.dev/api/films')
-   const data=await response.json();
-   
-      const transformedMovies = data.results.map(moviesData=>{
-        return {
-          id:moviesData.episode_id,
-          title:moviesData.title,
-          openingText:moviesData.opening_crawl,
-          releaseDate:moviesData.release_date
-        };
-      });
-      setLoading(false);
-      setMovies(transformedMovies);
-      console.log(transformedMovies);
-   
-   
+    id= setInterval(()=>{
+    fetchMoviesHandler() ;
+   },3000)
+    setLoading(false);
+    alert(err);
   }
+  }
+
+  
     const addToCartHandler=(item)=>{
         const existingItem=cartItem.find((itm)=>itm.id === item.id);
         if(existingItem)
@@ -37,11 +50,12 @@ const CtxProvider= (props)=>{
         else{
             setCartItem([item,...cartItem])
         }
+        console.log(isLoading);
     }
 
     const removeFromHandler=(id)=>{
         const dltItem=cartItem.find((itm)=>itm.id === id)
-        if(dltItem)
+        if(dltItem.quantity > 1)
         {
             dltItem.quantity--;
             alert('Quantity Reduced')
@@ -53,7 +67,7 @@ const CtxProvider= (props)=>{
     }
     //API useEffect adding movies data automatic
     useEffect(()=>{
-      setLoading(true);
+     
         fetchMoviesHandler();
         
     },[])
@@ -65,6 +79,7 @@ const CtxProvider= (props)=>{
         fetchMoviesHandler:fetchMoviesHandler,
         isLoading:isLoading
     }
+    
  return(
    <ContextAPI.Provider value={ctxData}>
     {props.children}
@@ -72,3 +87,4 @@ const CtxProvider= (props)=>{
  )
 }
 export default CtxProvider;
+
