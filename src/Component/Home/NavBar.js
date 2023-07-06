@@ -30,6 +30,7 @@ const NavBar = () => {
             <NavLink to='/movies'>Movies</NavLink>
             <NavLink to='/about'>About</NavLink>
             <NavLink to='/contactUs'>Contact Us</NavLink>
+            <NavLink to='/login'>Login</NavLink>
             <Cartp />
             <p
               style={{

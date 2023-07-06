@@ -6,6 +6,7 @@ import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 
 import { ContextAPI } from "../../Store/ContextAPI";
+import { NavLink } from "react-router-dom";
 
 
 const Cardsee = (props) => {
@@ -88,7 +89,10 @@ const productsArr = [
            <Col className="m-5 d-flex justify-content-around" key={item.id} id={item.id} >
            <Card style={{ width: "18rem" }}>
              <div>
-             <Card.Img variant="top" src={item.imageUrl}/>
+              <NavLink to={`/singleproduct/${item.id}`}>
+              <Card.Img variant="top" src={item.imageUrl}/>
+              </NavLink>
+             
              </div>
              <Card.Body>
                <Card.Title>{item.title}</Card.Title>
