@@ -5,10 +5,13 @@ import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 import Button from "react-bootstrap/esm/Button";
 import { ContextAPI } from "../../Store/ContextAPI";
+
 const Movies = () => {
+  
   // const [showBtn, setBtn]=useState(false);
   
   const ctx=useContext(ContextAPI)
+  
   // const data = [
     
       
@@ -31,14 +34,18 @@ const Movies = () => {
   // ];
   return (
     <Container className="w-75">
-      <div className="text-center mt-5">
-        <h1>Movies</h1>
-        <Button onClick={ctx.fetchMoviesHandler} bsStyle="primary" bsSize="large">Fetch Movie</Button>
+     {ctx.isLoading ? <h2>Loading.....</h2>:(<div>
+
+           <div className="text-center mt-5">
         
-        {/* { showBtn && <Button bsStyle="primary" bsSize="large" className="ml-2">Show&Hide</Button>} */}
+           <h1>Movies</h1>
+           <Button onClick={ctx.fetchMoviesHandler} bsStyle="primary" bsSize="large">Fetch Movie</Button>
+           
+           {/* { showBtn && <Button bsStyle="primary" bsSize="large" className="ml-2">Show&Hide</Button>} */}
+           
+           {/* <Button >Cancel</Button> */}
+         </div>
         
-        {/* <Button >Cancel</Button> */}
-      </div>
       <Row>
         <Col>
           <MDBTable striped>
@@ -75,6 +82,7 @@ const Movies = () => {
           </MDBTable>
         </Col>
       </Row>
+      </div>)}
     </Container>
   );
 };

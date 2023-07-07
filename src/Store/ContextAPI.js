@@ -7,7 +7,9 @@ const CtxProvider= (props)=>{
   const [movies,setMovies]=useState([]);
   //Laoding
   const [isLoading,setLoading]=useState(false);
-  
+  //Protection of our pages
+  const isToken1=!!localStorage.getItem('token');
+  const [isToken,setToken]=useState(isToken1)
   const  fetchMoviesHandler= async()=>{
     let id;
     try{
@@ -77,7 +79,9 @@ const CtxProvider= (props)=>{
         removeFromCart:removeFromHandler,
         moviesFetch:movies,
         fetchMoviesHandler:fetchMoviesHandler,
-        isLoading:isLoading
+        isLoading:isLoading,
+        isToken:isToken,
+        setToken:setToken
     }
     
  return(

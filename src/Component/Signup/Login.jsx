@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import {
   MDBContainer,
@@ -7,8 +7,12 @@ import {
   MDBBtn,
   MDBIcon,
 } from "mdb-react-ui-kit";
+import { useNavigate } from "react-router-dom";
+import { ContextAPI } from "../../Store/ContextAPI";
 
 const Login = () => {
+  const ctx=useContext(ContextAPI)
+  const navigate=useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPwd, setconfirmPwd] = useState("");
@@ -68,7 +72,10 @@ const Login = () => {
           return alert(resData.error.message)
         }
         console.log(resData)
-
+        console.log(resData.idToken);
+        ctx.setToken(true);
+        localStorage.setItem("token",resData.idToken);
+        navigate('/')
       })
     }).catch((e)=>alert(e.error.message))
   };

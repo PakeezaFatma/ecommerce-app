@@ -18,7 +18,8 @@ import Login from './Component/Signup/Login';
 
 function App() {
  const ctx=useContext(ContextAPI);
- console.log(ctx.isLoading)
+ console.log(ctx.isLoading);
+ const isToken=!!localStorage.getItem('token');
   return (
     <div className="App">
 
@@ -28,7 +29,7 @@ function App() {
       <Routes>
         {/* <Route path='/' element={<Home/>} /> */}
         <Route path='/about' element={<About/>} />
-        <Route path='/movies' element={! ctx.isLoading && <Movies /> || ctx.isLoading && <p>...Loading</p>}/>
+        <Route path='/movies' element={ctx.isToken ? <Movies /> : <Login/>}/>
         <Route path='/singleproduct/:id' element={<Single/>}/>
         {/* <Route path='/movies' element={ctx.isLoading ? <p>Loading........</p> : <Movies />} /> */}
         <Route path='/contactUs' element={<ContactUs/>}/>

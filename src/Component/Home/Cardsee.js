@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 import Container from "react-bootstrap/esm/Container";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -6,12 +6,12 @@ import Row from "react-bootstrap/esm/Row";
 import Col from "react-bootstrap/esm/Col";
 
 import { ContextAPI } from "../../Store/ContextAPI";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 
 const Cardsee = (props) => {
 const ctx =useContext(ContextAPI);
-
+const navigate=useNavigate()
 const productsArr = [
 
   {
@@ -60,6 +60,7 @@ const productsArr = [
   
   ];
 
+  const istoken=!!localStorage.getItem("token");
     
     
     const addToCartHandler=(title,price,img,i)=>{
@@ -70,7 +71,14 @@ const productsArr = [
         id:i,
         quantity:1
       }
-      ctx.addtoCartItem(obj)
+      if(istoken){
+        ctx.addtoCartItem(obj);
+      }
+      else{
+        navigate("/login")
+        
+      }
+      
     }
     
   return (
