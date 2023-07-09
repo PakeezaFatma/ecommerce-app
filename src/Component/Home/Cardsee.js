@@ -68,11 +68,11 @@ const productsArr = [
         title:title,
         price:price,
         imageUrl:img,
-        id:i,
+        // id:i,
         quantity:1
       }
       if(istoken){
-        ctx.addtoCartItem(obj);
+        ctx.addtoCartItem(obj,i);
       }
       else{
         navigate("/login")
@@ -84,7 +84,7 @@ const productsArr = [
   return (
     <section>
       <Container className="text-center">
-        {" "}
+      
         <h1 style={{fontFamily:"Metal Mania"}}>Music</h1>
       </Container>
 

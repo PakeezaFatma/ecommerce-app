@@ -41,38 +41,105 @@ const CtxProvider= (props)=>{
     alert(err);
   }
   }
+//crud crud
+  const base_url="https://crudcrud.com/api/8da0ef00238f4eac9c467f24c9faa0c8"
+  const email=localStorage.getItem("User_email");
+  //GetData
+  const getData=()=>{
+    const refind_email=(email || " @./").replace(/[@.]/g,"") 
+    fetch(base_url +"/"+ refind_email).then((res)=>{
+      const data=res.json();
+      data.then((resData)=>{
 
-  
-    const addToCartHandler=(item)=>{
+        console.log(resData);
+        setCartItem(resData);
+      })
+    }).catch((e)=>console.log("error",e));
+  }
+//post
+const postData=(item)=>{
+  const refind_email=email.replace(/[@.]/g,"");
+  fetch(base_url+"/"+ refind_email,{
+    method:"POST",
+    body:JSON.stringify(item),
+    headers:{
+      'Content-Type' :'application/json'
+    }
+  }).then((res)=>{
+    const data=res.json();
+    data.then((resData)=>{
+      console.log(resData);
+      getData();
+    })
+  }).catch((e)=>console.log('error',e))
+}
+
+//put (Update)
+const update=(item,id)=>{
+  const refind_email=email.replace(/[@.]/g,"")
+fetch(base_url+"/"+refind_email +"/"+ id,{
+  method:"PUT",
+  body:JSON.stringify(item),
+  headers:{
+    'Content-Type':'application/json'
+  }
+}).then((res)=>{
+  const data=res.json();
+  data.res((resData)=>{
+    console.log(resData);
+    getData();
+  })
+}).catch((e)=>console.log("error",e))
+}
+  const addToCartHandler=(item,id)=>{
+      
         const existingItem=cartItem.find((itm)=>itm.id === item.id);
         if(existingItem)
         {
             existingItem.quantity++;
+            update(existingItem,id);
+            return;
         }
-        else{
-            setCartItem([item,...cartItem])
-        }
+        // else{
+        //     setCartItem([item,...cartItem])
+        // }
         console.log(isLoading);
+        postData(item);
     }
-
+//get delete
+const removeItem=(id)=>{
+const refind_email= email.replace(/[@.]/g,"");
+  fetch(base_url+"/"+refind_email+"/"+id,{
+    method:"DELETE",
+   
+  }).then((res)=>{
+    
+    
+      console.log(res);
+     getData();
+    }).catch((e)=>console.log("error",e))
+ 
+}
     const removeFromHandler=(id)=>{
-        const dltItem=cartItem.find((itm)=>itm.id === id)
-        if(dltItem.quantity > 1)
-        {
-            dltItem.quantity--;
-            alert('Quantity Reduced')
-        }
-        else{
-            const updated =cartItem.filter((itm)=>itm.id !== id)
-            setCartItem(updated);
-        }
+        // const dltItem=cartItem.find((itm)=>itm.id === id)
+        // if(dltItem.quantity > 1)
+        // {
+        //     dltItem.quantity--;
+        //     alert('Quantity Reduced')
+        // }
+        // else{
+        //     const updated =cartItem.filter((itm)=>itm.id !== id)
+        //     setCartItem(updated);
+        // }
+        removeItem(id);
+
     }
     //API useEffect adding movies data automatic
     useEffect(()=>{
      
         fetchMoviesHandler();
-        
-    },[])
+        getData();
+    },[isToken])
     const ctxData={
         items:cartItem,
          addtoCartItem:addToCartHandler,

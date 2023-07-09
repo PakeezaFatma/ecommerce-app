@@ -30,6 +30,10 @@ const Login = () => {
   const switchHandler = (e) => {
     setLogin(!login);
   };
+
+
+
+  
   let url;
   const auth = async () => {
     // if (confirmPwd !== password) {
@@ -73,6 +77,7 @@ const Login = () => {
         }
         console.log(resData)
         console.log(resData.idToken);
+        localStorage.setItem("User_email",email);
         ctx.setToken(true);
         localStorage.setItem("token",resData.idToken);
         navigate('/')

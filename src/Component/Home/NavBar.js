@@ -3,16 +3,22 @@ import React, { useContext } from "react";
 import Nav from "react-bootstrap/Nav";
 import { NavLink } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
-
+import Button from "react-bootstrap/esm/Button";
 import Cartp from "./Cartp";
 import { ContextAPI } from "../../Store/ContextAPI";
 
 const NavBar = () => {
   const ctx = useContext(ContextAPI);
+  const logoutHandler =()=>{
+    localStorage.clear();
+    ctx.setToken(false);
+
+  }
   let noItem = 0;
   ctx.items.forEach((item) => {
     noItem++;
   });
+  
   return (
     <div>
       <section>
@@ -30,8 +36,16 @@ const NavBar = () => {
             <NavLink to='/movies'>Movies</NavLink>
             <NavLink to='/about'>About</NavLink>
             <NavLink to='/contactUs'>Contact Us</NavLink>
-            <NavLink to='/login'>Login</NavLink>
-            <Cartp />
+           { !ctx.isToken &&
+           <NavLink to='/login'>Login</NavLink>
+           }
+           {
+            ctx.isToken && <Button onClick={logoutHandler}>Logout</Button>
+           }
+            
+            {ctx.isToken &&
+              <Cartp />}
+           {ctx.isToken &&
             <p
               style={{
                 color: "white",
@@ -41,7 +55,7 @@ const NavBar = () => {
               }}
             >
               {noItem}
-            </p>
+            </p>}
           </Nav>
         </Navbar>
       </section>

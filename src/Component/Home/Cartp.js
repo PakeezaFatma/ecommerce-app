@@ -89,7 +89,7 @@ const Cartp = () => {
                 <Button
                   variant="primary"
                   className="cart-remove-btn"
-                  onClick={removeHandler.bind(null, item.id)}
+                  onClick={removeHandler.bind(null, item._id)}
                 >
                   Remove
                 </Button>
