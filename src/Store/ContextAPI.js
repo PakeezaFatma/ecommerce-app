@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { json } from 'react-router-dom';
 
 export const ContextAPI=React.createContext();
 const CtxProvider= (props)=>{
@@ -42,8 +43,10 @@ const CtxProvider= (props)=>{
   }
   }
 //crud crud
-  const base_url="https://crudcrud.com/api/8da0ef00238f4eac9c467f24c9faa0c8"
+  const base_url="https://crudcrud.com/api/6671f1ff51904dcea60f4b2514bc4170"
   const email=localStorage.getItem("User_email");
+  
+  
   //GetData
   const getData=()=>{
     const refind_email=(email || " @./").replace(/[@.]/g,"") 
@@ -56,7 +59,8 @@ const CtxProvider= (props)=>{
       })
     }).catch((e)=>console.log("error",e));
   }
-//post
+
+  //post
 const postData=(item)=>{
   const refind_email=email.replace(/[@.]/g,"");
   fetch(base_url+"/"+ refind_email,{
@@ -92,14 +96,17 @@ fetch(base_url+"/"+refind_email +"/"+ id,{
 }).catch((e)=>console.log("error",e))
 }
   const addToCartHandler=(item,id)=>{
-      
-        const existingItem=cartItem.find((itm)=>itm.id === item.id);
+      console.log(item,id)
+        const existingItem=cartItem.find((itm)=>itm.id === id);
+        console.log("existingItem",existingItem)
         if(existingItem)
         {
             existingItem.quantity++;
             update(existingItem,id);
+            console.log("Existing item",id,existingItem)
             return;
         }
+        
         // else{
         //     setCartItem([item,...cartItem])
         // }
@@ -109,29 +116,35 @@ fetch(base_url+"/"+refind_email +"/"+ id,{
 //get delete
 const removeItem=(id)=>{
 const refind_email= email.replace(/[@.]/g,"");
-  fetch(base_url+"/"+refind_email+"/"+id,{
+fetch(base_url+"/"+refind_email +"/"+ id,{
     method:"DELETE",
-   
+    // body:JSON.stringify,
+    headers:{
+      'Content-Type':'application/json'
+    }
   }).then((res)=>{
     
     
       console.log(res);
      getData();
-    }).catch((e)=>console.log("error",e))
+    }).catch((e)=>console.log("error in remove ",e))
  
 }
     const removeFromHandler=(id)=>{
-        // const dltItem=cartItem.find((itm)=>itm.id === id)
-        // if(dltItem.quantity > 1)
-        // {
-        //     dltItem.quantity--;
-        //     alert('Quantity Reduced')
-        // }
+        const dltItem=cartItem.find((itm)=>itm.id === id)
+        if(dltItem.quantity > 1)
+        {
+            dltItem.quantity--;
+            // alert('Quantity Reduced')
+            update(dltItem,id);
+            return;
+        }
         // else{
         //     const updated =cartItem.filter((itm)=>itm.id !== id)
         //     setCartItem(updated);
         // }
         removeItem(id);
+        console.log(cartItem);
 
     }
     //API useEffect adding movies data automatic
